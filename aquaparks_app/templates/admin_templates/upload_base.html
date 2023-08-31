@@ -1,0 +1,65 @@
+{% extends 'aquaparks_app/base.html' %}
+
+{% block styles %}
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+{% endblock styles %}
+
+{% block content %}
+
+<form class="card card-olive" method='post' enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="card-header">
+      <h3 class="card-title">Upload base</h3>
+      <div class="card-tools">
+          <button type="button" class="btn btn-tool" data-card-widget="collapse">
+          <i class="fas fa-minus"></i>
+          </button>
+      </div>
+    </div>
+    <!-- /.card-header -->
+    <div class='card-body'>
+        <div class="custom-file">
+            {{ form.excel_file }}
+            <label class="custom-file-label" for="{{ form.excel_file.id_for_label }}">Choisir un fichier Excel</label>
+        </div>
+    <!-- /.col --> 
+    </div>
+    <div class="card-footer">
+        <div class="col-8 d-flex justify-content-center" style="margin: auto;">
+            <button type="submit" class="btn btn-success col-12">Uploader</button>
+        </div>
+    </div>
+    <!-- /.footer --> 
+  </form>
+<div class="card card-olive">
+    {% if excel_table %}
+    <div class="card-header">
+        <h3 class="card-title">Base Excel</h3>
+        <div class="card-tools">
+            <button type="button" class="btn btn-tool" data-card-widget="collapse">
+            <i class="fas fa-minus"></i>
+            </button>
+        </div>
+      </div>
+      <!-- /.card-header -->
+    <div class="card-body table-responsive">
+        <table class="table table-bordered table-striped table-hover">
+            {{ excel_table|safe }}
+        </table>
+    </div>
+    {% endif %}
+</div>
+{% endblock content %}
+
+{% block scripts %}
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        // jQuery code to update the custom file input label with the selected file name
+        $(document).ready(function() {
+            $('.custom-file-input').on('change', function() {
+                var fileName = $(this).val().split('\\').pop();
+                $('.custom-file-label').text(fileName);
+            });
+        });
+    </script>
+{% endblock scripts %}

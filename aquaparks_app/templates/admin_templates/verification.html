@@ -1,0 +1,302 @@
+{% extends 'aquaparks_app/base.html' %}
+
+{% block styles %}
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-switch/3.3.4/css/bootstrap2/bootstrap-switch.min.css">
+  <style>
+    .visible-input {
+        background-color: #f0f0f0; /* Change this to your desired background color */
+        color: #333; /* Change this to your desired text color */
+        font-weight: bold; /* Optionally adjust the font weight */
+        font-size: 16px; /* Optionally adjust the font size */
+        border: 1px solid #ccc; /* Optionally add a border for better visibility */
+        padding: 5px 10px; /* Optionally adjust padding for better spacing */
+    }
+    
+  </style>
+{% endblock styles %}
+
+{% block content%}
+        
+        <form class="card card-olive" method='post'>
+                <div class="card card-olive">
+                    <div class="card-header">
+                    <h3 class="card-title">Reservation des Aquaparks</h3>
+                    <div class="card-tools">
+                      <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                      <i class="fas fa-minus"></i>
+                      </button>
+                      
+                  </div>
+                    </div>
+                    
+                    <div class="card-body p-0">
+                    <table class="table table-striped">
+                      <thead>
+                        <tr>
+                          <th style="width: auto;" class="text-center">Personne</th>
+                          <th style="width: auto;" class="text-center">Nom et Prenom</th>
+                          <th style="width: auto;" class="text-center">Date de naissance</th>
+                          <th style="width: auto;" class="text-center">Age</th>
+                          <th style="width: auto;" class="text-center">Droit a Beneficier</th>
+                          <th style="width: auto;" class="text-center">DinoLand</th>
+                          <th style="width: auto;" class="text-center">Tamaris</th>
+                          <th style="width: auto;" class="text-center">AquaFun</th>
+                          <th style="width: auto;" class="text-center">AquaMirage</th>
+                          <th style="width: auto;" class="text-center">Accord</th>
+                        </tr>
+                      </thead>
+                    <tbody> 
+  
+                    <!-- row Agent-->
+                    <tr>
+                        <td>Agent </td>
+                        <td>{{agent.nom|upper}} {{agent.prenom|title}} </td>
+                        <td>
+                            <div class="input-group" id="abId0.503">
+                                <input type="date" class="form-control text-center" value="{{agent.datenaissance|date:'Y-m-d'}}" disabled>
+                            </div>
+                        </td>
+                        <td>
+                            <input type="text" class="form-control text-center" inputmode="numeric" value="{{agent.age}}" disabled>
+                        </td>
+                        <td>
+                            <label class="btn btn-block btn-success">
+                                <input type="checkbox" name="accord" id="id_accord" class="d-none">
+                                OUI
+                            </label>                            
+                        </td>
+                        <td>
+                            <div class="form-group">
+                                <input type="text" class="form-control text-center visible-input" value="{{agent.dinoland_reservations}}" disabled="">
+                            </div>
+                        </td>
+                        <td>
+                            <div class="form-group">
+                                <input type="text" class="form-control text-center visible-input" value="{{agent.tamaris_reservations}}" disabled="">
+                            </div>
+                        </td>
+                        <td>
+                            <div class="form-group">
+                                <input type="text" class="form-control text-center visible-input" value="{{agent.aquafun_reservations}}" disabled="">
+                            </div>
+                        </td>
+                        <td>
+                            <div class="form-group">
+                                <input type="text" class="form-control text-center visible-input" value="{{agent.aquamirage_reservations}}" disabled="">
+                            </div>
+                        </td>
+                        <td>
+                            <input type="checkbox" class="bootstrap-switch bootstrap-switch-wrapper bootstrap-switch-focused bootstrap-switch-animate bootstrap-switch-off" data-on-text="OUI" data-off-text="NON" data-off-color="danger" data-on-color="success" checked>
+                        </td>                    
+                    </tr>
+                    
+                    {% for conjointe in conjointes %}
+                        <!-- row Conjointe-->
+                    <tr>
+                        <td>Conj {{ forloop.counter }} </td>
+                        <td>{{conjointe.nom|upper}} {{conjointe.prenom|title}} </td>
+                        <td>
+                            <div class="input-group" id="abId0.503">
+                                <input type="date" class="form-control text-center text-center" value="{{conjointe.datenaissance|date:'Y-m-d'}}" disabled>
+                            </div>
+                        </td>
+                        <td>
+                            <input type="text" class="form-control text-center" inputmode="numeric" value="{{conjointe.age}}" disabled>
+                        </td>
+                        <td>
+                            <label class="btn btn-block btn-success">
+                                <input type="checkbox" name="accord" id="id_accord" class="d-none">
+                                OUI
+                            </label>
+                            
+                        </td>
+                        <td>
+                            <div class="form-group">
+                                <input type="text" class="form-control text-center visible-input" value="{{conjointe.dinoland_reservations}}" disabled="">
+                            </div>
+                        </td>
+                        <td>
+                            <div class="form-group">
+                                <input type="text" class="form-control text-center visible-input" value="{{conjointe.tamaris_reservations}}" disabled="">
+                            </div>
+                        </td>
+                        <td>
+                            <div class="form-group">
+                                <input type="text" class="form-control text-center visible-input" value="{{conjointe.aquafun_reservations}}" disabled="">
+                            </div>
+                        </td>
+                        <td>
+                            <div class="form-group">
+                                <input type="text" class="form-control text-center visible-input" value="{{conjointe.aquamirage_reservations}}" disabled="">
+                            </div>
+                        </td>
+                        <td>
+                            <input type="checkbox" class="bootstrap-switch bootstrap-switch-wrapper bootstrap-switch-focused bootstrap-switch-animate bootstrap-switch-off" data-on-text="OUI" data-off-text="NON" data-off-color="danger" data-on-color="success" checked>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                    {% for enfant in enfants  %}
+                    <!--  row enfant-->
+                    <tr>
+                        <td>Enf {{ forloop.counter }} </td>
+                        <td>{{enfant.nom|upper}} {{enfant.prenom|title}} </td>
+                        <td>
+                            <div class="input-group" id="abId0.503">
+                                <input type="date" class="form-control text-center text-center" value="{{enfant.datenaissance|date:'Y-m-d'}}" disabled>
+                            </div>
+                        </td>
+                        <td>
+                            <input type="text" class="form-control text-center" inputmode="numeric" value="{{enfant.age}}" disabled>
+                        </td>
+                        <td>
+                            {% if enfant.droit_a_beneficier == 'oui' %}
+                            <label class="btn btn-block btn-success">
+                                <input type="checkbox" name="accord" id="id_accord" class="d-none">
+                                OUI
+                            </label>
+                            {% else %}
+                            <label class="btn btn-block btn-danger">
+                                <input type="checkbox" name="accord" id="id_accord" class="d-none">
+                                NON
+                            </label>
+                            {% endif %}
+                        </td>
+                        <td>
+                            <div class="form-group">
+                                {% if enfant.age < 2 %}
+                                <input type="text" class="form-control text-center visible-input" value="0" disabled="">
+                                {% else %}
+                                <input type="text" class="form-control text-center visible-input" value="{{enfant.dinoland_reservations}}" disabled="">
+                                {% endif %}
+                            </div>
+                        </td>
+                        <td>
+                            <div class="form-group">
+                                {% if enfant.age < 2 %}
+                                <input type="text" class="form-control text-center visible-input" value="0" disabled="">
+                                {% else %}
+                                <input type="text" class="form-control text-center visible-input" value="{{enfant.tamaris_reservations}}" disabled="">
+                                {% endif %}
+                            </div>
+                        </td>
+                        <td>
+                            <div class="form-group">
+                                {% if enfant.age < 2 %}
+                                <input type="text" class="form-control text-center visible-input" value="0" disabled="">
+                                {% else %}
+                                <input type="text" class="form-control text-center visible-input" value="{{enfant.aquafun_reservations}}" disabled="">
+                                {% endif %}
+                            </div>
+                        </td>
+                        <td>
+                            <div class="form-group">
+                                {% if enfant.age < 2 %}
+                                <input type="text" class="form-control text-center visible-input" value="0" disabled="">
+                                {% else %}
+                                <input type="text" class="form-control text-center visible-input" value="{{enfant.aquamirage_reservations}}" disabled="">
+                                {% endif %}
+                            </div>
+                        </td>
+                        <td>
+                            <input type="checkbox" class="bootstrap-switch bootstrap-switch-wrapper bootstrap-switch-focused bootstrap-switch-animate bootstrap-switch-off" data-on-text="OUI" data-off-text="NON" data-off-color="danger" data-on-color="success" checked>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                    </tbody>
+                    </table>
+                    </div>
+                    
+                </div>
+                <!-- Les prix with a TABLE-->
+    <div class="card card-olive">
+        <div class="card-header">
+            <h3 class="card-title">Prix a payer</h3>
+            <div class="card-tools">
+                <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                <i class="fas fa-minus"></i>
+                </button>  
+            </div>
+        </div>
+        
+        <div class="card-body p-0">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th style="width: 10px">#</th>
+                        <th style="width: auto;">Aquaparks</th>
+                        <th style="width: auto; " class="d-flex justify-content-center">Prix</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                <tr>
+                    <td>1.</td>
+                    <td>DinoLand</td>
+                    <td class="d-flex justify-content-center "><span class="badge bg-green" style="width: 50%;font-size: 15px; ">{{dino_p}}</span></td>
+                </tr>
+
+                <tr>
+                    <td>2.</td>
+                    <td>Tamaris</td>
+                    <td class="d-flex justify-content-center"><span class="badge bg-green" style="width: 50%;font-size: 15px;">{{tam_p}}</span></td>
+                </tr>
+
+                <tr>
+                    <td>3.</td>
+                    <td>AquaFun</td>
+                    <td class="d-flex justify-content-center"><span class="badge bg-green" style="width: 50%;font-size: 15px;">{{aquaf_p}}</span></td>
+                </tr>
+
+                <tr>
+                    <td>4.</td>
+                    <td>AquaMirage</td>
+                    <td class="d-flex justify-content-center"><span class="badge bg-green" style="width: 50%;font-size: 15px;">{{aquam_p}}</span></td>
+                </tr>
+
+                </tbody>
+            </table>
+        </div>
+        
+    </div>
+
+
+
+
+    <!-- PRIX TOTAL -->
+    <div class="col-sm-12 d-flex justify-content-center">
+        
+        <div class="col-sm-4 d-flex align-items-center mt-3">
+            <label>PRIX TOTAL</label>
+            <div class="input-group" id="abI">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" >
+                        <i class="fas fa-wallet"></i>
+                    </span>
+                </div>
+                <input type="text" class="form-control text-center" value="{{prix_total}}" disabled style="font-size: 18px; font-weight: bold;">
+                <div class="input-group-append">
+                    <span class="input-group-text">DH</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+            </div>
+            <!-- /.card-body -->
+            
+
+            <!-- /.footer --> 
+        </form>
+<a href="{{ request.META.HTTP_REFERER }}" class="btn btn-default">Retour</a>
+    
+{% endblock content%}
+
+{% block scripts%}
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-switch/3.3.4/js/bootstrap-switch.min.js"></script>
+  <script>
+      $(document).ready(function () {
+        $('.bootstrap-switch').bootstrapSwitch();
+      });
+  </script>
+{% endblock scripts %}

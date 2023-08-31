@@ -1,0 +1,12 @@
+{% extends 'aquaparks_app/base.html' %}
+
+{% load static %}
+
+{% block content %}
+    <h2>Database Tables</h2>
+    <ul>
+        {% for table_name in table_names %}
+            <li>{{ table_name }}</li>
+        {% endfor %}
+    </ul>
+{% endblock %}

@@ -1,0 +1,44 @@
+{% load static %}
+
+<meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{ page_header_title|title }}</title>
+
+  <!-- Google Font: Source Sans Pro -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="{% static 'plugins/fontawesome-free/css/all.min.css' %}">
+  <!-- Ionicons -->
+  <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+  <!-- Tempusdominus Bootstrap 4 -->
+  <link rel="stylesheet" href="{% static 'plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css' %}">
+  <!-- iCheck -->
+  <link rel="stylesheet" href="{% static 'plugins/icheck-bootstrap/icheck-bootstrap.min.css' %}">
+  <!-- JQVMap -->
+  <link rel="stylesheet" href="{% static 'plugins/jqvmap/jqvmap.min.css' %}">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="{% static 'dist/css/adminlte.min.css' %}">
+  <!-- overlayScrollbars -->
+  <link rel="stylesheet" href="{% static 'plugins/overlayScrollbars/css/OverlayScrollbars.min.css' %}">
+  <!-- Daterange picker -->
+  <link rel="stylesheet" href="{% static 'plugins/daterangepicker/daterangepicker.css' %}">
+  <!-- summernote -->
+  <link rel="stylesheet" href="{% static 'plugins/summernote/summernote-bs4.min.css' %}">
+  <link rel="icon" href="{% static 'dist/img/ocp_logo2.png' %}" type="image/x-icon">
+
+  <style>
+    /* Change the background color of the sidebar */
+    .sidebar-dark-primary {
+      background-color: rgb(7, 92, 7); /* Change to your desired color */
+    }
+
+    /* Change the color of the text/icons in the sidebar */
+    .sidebar-dark-primary .nav-sidebar .nav-item .nav-link {
+      color: rgb(255, 255, 255); /* Change to your desired text color */
+    }
+
+    /* Change the color of the active link in the sidebar */
+    .sidebar-dark-primary .nav-sidebar .nav-item.active > .nav-link {
+      background-color:rgb(0, 255, 13); /* Change to your desired active link background color */
+    }
+  </style>

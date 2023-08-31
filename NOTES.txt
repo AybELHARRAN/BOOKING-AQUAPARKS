@@ -1,0 +1,155 @@
+dino: 30dh adulte 
+25dh enfant
+
+tamris: 40-30
+aquafun:50-40 avec dejeuner // 40-30sans
+
+aquamirage:50-40 // 40-30
+
+
+
+droit a benficier:
+non: >21 ans
+<2ans: pas d'argent.
+
+
+
+
+change the title in the header.html to change auto
+
+change the sidebar to change auto in sidebar.html
+note that the sidebar is right now fixe on aquaparks
+
+change the first row in the base adaptation .. 
+
+We have 17 <scripts>
+
+fuser: hXm&fZbX866j
+
+muser: W,-?&D=Va8(t
+
+
+ajouter 2  templates:
+-->template database pour les 2 types d'utilisateur : choix entre conjointe,enfant,agents
+-->template ajouter un worker pour l'admin
+
+
+def reservation2(request,matricule):
+    if not request.user.is_authenticated:
+        return redirect(reverse('login_page'))
+    if request.user.user_type != '1':
+        return HttpResponseForbidden()
+    
+    agent = Agent.objects.get(matricule=matricule)
+    conjointes = Conjointe.objects.filter(agent=agent)
+    enfants = Enfant.objects.filter(agent=agent)
+    form = ReserverForm(request.POST or None)
+    print(matricule)
+    if request.method == 'POST':
+        if form.is_valid():
+            agent.dinoland_reservations = form.cleaned_data.get('dinoland')
+            agent.tamaris_reservations = form.cleaned_data.get('tamaris')
+            agent.aquafun_reservations = form.cleaned_data.get('aquafun')
+            agent.aquamirage_reservations = form.cleaned_data.get('aquamirage')
+            print(form.cleaned_data.get('dinoland'))
+            print(58)
+            agent.save()
+            # Handle conjointes' reservations
+            for conjointe, prefix in zip(conjointes, [f"conjoint_{i}_" for i in range(len(conjointes))]):
+                conjointe.dinoland_reservations = form.cleaned_data[prefix + 'dinoland']
+                conjointe.tamaris_reservations = form.cleaned_data[prefix + 'tamaris']
+                conjointe.aquafun_reservations = form.cleaned_data[prefix + 'aquafun']
+                conjointe.aquamirage_reservations = form.cleaned_data[prefix + 'aquamirage']
+                conjointe.save()
+
+            # Handle enfants' reservations
+            for enfant, prefix in zip(enfants, [f"enfant_{i}_" for i in range(len(enfants))]):
+                enfant.dinoland_reservations = form.cleaned_data[prefix + 'dinoland']
+                enfant.tamaris_reservations = form.cleaned_data[prefix + 'tamaris']
+                enfant.aquafun_reservations = form.cleaned_data[prefix + 'aquafun']
+                enfant.aquamirage_reservations = form.cleaned_data[prefix + 'aquamirage']
+                enfant.save()
+
+            messages.success(request, 'La réservation est faite avec succès')
+
+            '''for conjointe in conjointes:
+                conjointe.dinoland_reservations = form.cleaned_data['dinoland']
+                conjointe.tamaris_reservations = form.cleaned_data['tamaris']
+                conjointe.aquafun_reservations = form.cleaned_data['aquafun']
+                conjointe.aquamirage_reservations = form.cleaned_data['aquamirage']
+                conjointe.save()
+
+            for enfant in enfants: 
+                enfant.dinoland_reservations = form.cleaned_data['dinoland']
+                enfant.tamaris_reservations = form.cleaned_data['tamaris']
+                enfant.aquafun_reservations = form.cleaned_data['aquafun']
+                enfant.aquamirage_reservations = form.cleaned_data['aquamirage']
+                enfant.save()'''
+            
+
+    else:
+        form = ReserverForm()
+    context = {
+        'page_header_title' : 'reservation',
+        'active_sidebar' : 'reservation',
+        'agent':agent,'conjointes':conjointes,'enfants':enfants,'form':form,
+    }
+    return render(request,'admin_templates/reservation2.html',context)
+
+~######################################################################
+########################################################################
+<tbody>
+                    
+                <tr>
+                    <td>Agent</td>
+                    <td>{{agent.nom|upper}} {{agent.prenom|title}} </td>
+                    <td>
+                        {{form.dinoland}}
+                    </td>
+                    <td>
+                        {{form.tamaris}}
+                    </td>
+                    <td>
+                        {{form.aquafun}}
+                    </td>
+                    <td>
+                        {{form.aquamirage}}
+                    </td>
+                </tr>
+                {% for conjointe in conjointes %}
+                <tr>
+                    <td>Conjoint {{forloop.counter}} </td>
+                    <td>{{conjointe.nom|upper}} {{conjointe.prenom|title}} </td>
+                    <td>
+                        {{ form['conjoint_'|add:forloop.counter|add:'_dinoland'] }}
+                    </td>
+                    <td>
+                        {{ form['conjoint_'|add:forloop.counter|add:'_tamaris'] }}
+                    </td>
+                    <td>
+                        {{ form['conjoint_'|add:forloop.counter|add:'_aquafun'] }}
+                    </td>
+                    <td>
+                        {{ form['conjoint_'|add:forloop.counter|add:'_aquamirage'] }}
+                    </td>
+                </tr>
+                {% endfor %}
+                {% for enfant in enfants %}
+                <tr>
+                    <td>Enfant {{forloop.counter}} </td>
+                    <td>{{enfant.nom|upper}} {{enfant.prenom|title}} </td>
+                    <td>
+                        {{ form['enfant_'|add:forloop.counter|add:'_dinoland'] }}
+                    </td>
+                    <td>
+                        {{ form['enfant_'|add:forloop.counter|add:'_tamaris'] }}
+                    </td>
+                    <td>
+                        {{ form['enfant_'|add:forloop.counter|add:'_aquafun'] }}
+                    </td>
+                    <td>
+                        {{ form['enfant_'|add:forloop.counter|add:'_aquamirage'] }}
+                    </td>
+                </tr>
+                {% endfor %}
+                </tbody>

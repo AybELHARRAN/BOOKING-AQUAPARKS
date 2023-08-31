@@ -1,0 +1,116 @@
+{% extends 'aquaparks_app/base.html' %}
+
+{% block content %}
+  <!--  AJOUTER DES ENFANTS  -->
+  <form class="card card-olive" method="post" action="">
+    {% csrf_token %}
+      <div class="card-header">
+        {% if action %}
+            <h3 class="card-title">Modifier un enfant</h3>
+        {% else %}
+            <h3 class="card-title">Ajouter un enfant</h3>
+        {% endif %}
+      <div class="card-tools">
+          <button type="button" class="btn btn-tool" data-card-widget="collapse">
+          <i class="fas fa-minus"></i>
+          </button>
+          
+      </div>
+      </div>
+      <!-- /.card-header -->
+
+      <div class="card-body">
+        <div class="row">
+            <div class="col-12">
+                <div class="form-group">
+                    <label >Matricule de l'Agent</label>
+                    <input type="text" name="matricule" class="form-control" value="{{matricule}}" id="id_matricule" disabled>
+                </div>
+                <!-- /.form-group -->  
+            </div>
+            <!-- /.col --> 
+        </div>
+        <!-- /.row -->
+          <div class="row">
+              <div class="col-6">
+                  <div class="form-group">
+                      <label for="{{form_e.nom.id_for_label}}">Nom</label>
+                      {{form_e.nom}}
+                  </div>
+                  <!-- /.form-group -->  
+              </div>
+              <!-- /.col --> 
+
+              <div class="col-6">
+                  <div class="form-group">
+                      <label for="{{form_e.prenom.id_for_label}}">Prenom</label>
+                      {{form_e.prenom}}
+                  </div>
+                  <!-- /.form-group -->  
+              </div>
+              <!-- /.col --> 
+          </div>
+          <!-- /.row -->
+          <div class="row">
+
+            <div class="col-6">
+                <div class="form-group">
+                    <label for="{{form_e.CIN.id_for_label}}">CIN</label>
+                    {{form_e.CIN}}
+                </div>
+                <!-- /.form-group -->  
+            </div>
+            <!-- /.col --> 
+            <div class="col-6">
+                <label for="{{form_e.datenaissance.id_for_label}}">Date de naissance</label>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
+                    </div>
+                    {{form_e.datenaissance}}
+                </div>
+                  <!-- /.form-group -->  
+              </div>
+              <!-- /.col --> 
+
+        </div>
+        <!-- /.row -->
+
+          <div class="row">
+              <div class="col-6">
+                  <div class="form-group">
+                      <label for="{{form_e.sexe.id_for_label}}">Sexe</label>
+                      {{form_e.sexe}}
+                      
+                  </div>
+              </div>
+              
+              <!-- /.col --> 
+              <div class="col-6">
+                  <div class="form-group">
+                      <label for="{{form_e.adulte_enfant.id_for_label}}">Adulte/Enfant</label>
+                      {{form_e.adulte_enfant}}
+                      
+                  </div>
+              </div>
+              <!-- /.col -->
+          </div>
+          <!-- /.row -->
+          
+      </div>
+      <!-- /.card-body -->
+        {% if action %}
+            <div class="card-footer">
+                <button type="submit" class="btn btn-success" name="submit_c">Modifier</button>
+            </div>
+        {% else %}
+            <div class="card-footer">
+                <button type="submit" class="btn btn-success" name="submit_c">Ajouter</button>
+            </div>
+        {% endif %}
+    <!-- /.footer -->
+      
+  </form>
+   
+{% endblock content %}
+

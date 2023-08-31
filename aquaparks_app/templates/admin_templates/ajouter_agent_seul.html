@@ -1,0 +1,133 @@
+{% extends 'aquaparks_app/base.html' %}
+
+{% block content %}
+  <!--  AJOUTER UN AGENT  -->
+  <form class="card card-olive" method="post" >
+    {% csrf_token %}
+      <div class="card-header">
+      <h3 class="card-title">Modifier l'agent</h3>
+      <div class="card-tools">
+          <button type="button" class="btn btn-tool" data-card-widget="collapse">
+          <i class="fas fa-minus"></i>
+          </button>
+          
+      </div>
+      </div>
+      <!-- /.card-header -->
+
+      <div class="card-body">
+          <div class="row">
+              <div class="col-6">
+                  <div class="form-group">
+                      <label for="{{form_a.matricule.id_for_label}}">Matricule</label>
+                      {{form_a.matricule}}
+                  </div>
+                  <!-- /.form-group -->  
+              </div>
+              <!-- /.col -->
+              <div class="col-6">
+                <div class="form-group">
+                    <label for="{{form_a.CIN.id_for_label}}">CIN</label>
+                    {{form_a.CIN}}
+                </div>
+                <!-- /.form-group -->  
+            </div>
+            <!-- /.col --> 
+          </div>
+          <!-- /.row -->
+          <div class="row">
+              <div class="col-6">
+                  <div class="form-group">
+                      <label for="{{form_a.nom.id_for_label}}">Nom</label>
+                      {{form_a.nom}}
+                  </div>
+                  <!-- /.form-group -->  
+              </div>
+              <!-- /.col --> 
+
+              <div class="col-6">
+                  <div class="form-group">
+                      <label for="{{form_a.prenom.id_for_label}}">Prenom</label>
+                      {{form_a.prenom}}
+                  </div>
+                  <!-- /.form-group -->  
+              </div>
+              <!-- /.col --> 
+          </div>
+          <!-- /.row -->
+
+          <div class="row">
+              <div class="col-6">
+                  <div class="form-group">
+                      <label for="{{form_a.datenaissance.id_for_label}}">Date de naissance</label>
+                      {{form_a.datenaissance}}
+                  </div>
+                  <!-- /.form-group -->  
+              </div>
+              <!-- /.col --> 
+
+              <div class="col-6">
+                  <div class="form-group">
+                      <label for="{{form_a.categorie.id_for_label}}">Categorie</label>
+                      {{form_a.categorie}}
+                  </div> 
+                  <!-- /.form-group -->                   
+              </div>
+              
+          </div>
+          <!-- /.row -->
+          <div class="row">
+              <div class="col-6">
+                  <div class="form-group">
+                      <label for="{{form_a.email.id_for_label}}">Email</label>
+                      {{form_a.email}}
+                  </div>
+                  <!-- /.form-group -->  
+              </div>
+              <!-- /.col --> 
+
+              <div class="col-6">
+                  <div class="form-group">
+                      <label for="{{form_a.telephone.id_for_label}}">Telephone</label>
+                      {{form_a.telephone}}
+                  </div> 
+                  <!-- /.form-group -->                   
+              </div>
+              
+          </div>
+          <!-- /.row -->
+          
+          <div class="row">
+              <div class="col-6">
+                  <div class="form-group" >
+                      <label for="{{form_a.sexe.id_for_label}}">Sexe</label>
+                      {{form_a.sexe}}
+                      
+                  </div>
+              </div>
+              
+              <!-- /.col --> 
+              <div class="col-6">
+                  <div class="form-group">
+                      <label for="{{form_a.adulte_enfant.id_for_label}}">Adulte/Enfant</label>
+                      {{form_a.adulte_enfant}}
+                      
+                  </div>
+              </div>
+              <!-- /.col -->
+          </div>
+
+          <!-- /.row -->
+          
+      </div>
+      <!-- /.card-body -->
+      <div class="card-footer">
+        <button type="submit" class="btn btn-success" name="submit_a">Modifier</button>
+    </div>
+    <!-- /.footer -->
+      
+  </form>
+
+
+{% endblock content %}
+

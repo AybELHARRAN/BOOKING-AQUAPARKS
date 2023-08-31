@@ -1,0 +1,110 @@
+{% load static %}
+<aside class="main-sidebar sidebar-dark-primary elevation-4">
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <!-- Sidebar user panel (optional) -->
+      <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+        <div class="image">
+          <img src="{% static 'dist/img/ocp_logo2.png' %}" class="img-circle elevation-2" alt="User Image">
+        </div>
+        <div class="info">
+          <a class="d-block">Bonjour {{ user.username|title }} !</a>
+        </div>
+      </div>
+
+      <!-- Sidebar Menu -->
+      <nav class="mt-2">
+        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+          <!-- Add icons to the links using the .nav-icon class
+               with font-awesome or any other icon font library -->
+          <li class="nav-item ">
+            <a {% if user.user_type == '1' %} href="{% url 'chercher_page' action='verification' %}" {% else %} href="{% url 'chercher_page_worker' action='verification' %}" {% endif %} {% if active_sidebar == 'verification' %} class="nav-link active" style="background-color:forestgreen;" {% else %} class="nav-link" {% endif %}>
+                <i class="nav-icon fas fa-user-check"></i>
+              <p>
+                VERIFICATION
+              </p>
+            </a>
+          </li>
+          <li class="nav-item ">
+            <a {% if user.user_type == '1' %} href="{% url 'chercher_page' action='reservation' %}" {% else %} href="{% url 'chercher_page_worker' action='reservation' %}" {% endif %} {% if active_sidebar == 'reservation' %} class="nav-link active" style="background-color:forestgreen;" {% else %} class="nav-link" {% endif %} >
+                <i class="nav-icon far fa-calendar-check"></i>
+              <p>
+                RESERVATION
+              </p>
+            </a>
+          </li>
+          {% if user.user_type == '1' %}
+          <li class="nav-item {% if code %} menu-is-opening menu-open {% endif %}">
+            <a href="#" class="nav-link">
+            <i class="nav-icon fas fa-users"></i>
+            <p>
+            AGENTS
+            <i class="right fas fa-angle-left"></i>
+            </p>
+            </a>
+            <ul class="nav nav-treeview">
+                <li class="nav-item">
+                    <a href="{% url 'ajouter_agent_page' %}" class="nav-link {% if active_sidebar == 'ajouter' %} active {% endif %}">
+                    <i class="nav-icon fas fa-plus-circle"></i>
+                    <p>Ajouter</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{% url 'modifier_agent_page' %}" class="nav-link {% if active_sidebar == 'modifier' %} active {% endif %}">
+                        <i class="nav-icon fas fa-edit"></i>
+                    <p>Modifier</p>
+                    </a>
+                </li>
+            </ul>
+           </li>
+           <li class="nav-item ">
+            <a href="{% url 'add_user'  %}" {% if active_sidebar == 'Ajouter Staff' %} class="nav-link active" style="background-color:forestgreen;" {% else %} class="nav-link" {% endif %}>
+              <i class="nav-icon fas fa-user-plus"></i>
+              <p>
+                Ajouter Staff
+              </p>
+            </a>
+          </li>
+          <li class="nav-item ">
+            <a href="{% url 'upload_base' %}" {% if active_sidebar == 'Upload Base' %} class="nav-link active" style="background-color:forestgreen;" {% else %} class="nav-link" {% endif %} >
+              <i class="nav-icon fas fa-database"></i>
+              <p>
+                Upload base
+              </p>
+            </a>
+          </li>
+           {% endif %}
+          
+           <li class="nav-item ">
+            <a href="{% url 'aquaparks_page' %}" {% if active_sidebar == 'aquaparks' %} class="nav-link active" style="background-color:forestgreen;" {% else %} class="nav-link" {% endif %} >
+                <i class="nav-icon fas fa-swimming-pool"></i>
+              <p>
+                AQUAPARKS 
+              </p>
+            </a>
+          </li>
+          
+          
+          <li class="nav-item ">
+            <a href="{% url 'profil_page' %}" {% if active_sidebar == 'profil' %} class="nav-link active" style="background-color:forestgreen;" {% else %} class="nav-link" {% endif %} >
+                <i class="nav-icon fas fa-user-circle"></i>
+              <p>
+                PROFIL
+              </p>
+            </a>
+          </li>
+          <li class="nav-item ">
+            <a href="{% url 'do_logout' %}" class="nav-link ">
+              <i class="nav-icon fas fa-sign-out-alt"></i>
+              <p>
+                LOG OUT
+              </p>
+            </a>
+          </li>
+        </ul>
+      </nav>
+      <!-- /.sidebar-menu -->
+    </div>
+    <!-- /.sidebar -->
+  </aside>

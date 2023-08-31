@@ -1,0 +1,138 @@
+{% extends 'aquaparks_app/base.html' %}
+
+{% block content %}
+  <form class="card card-olive" method='post'>
+    {% csrf_token %}
+      <div class="card-header">
+          <h3 class="card-title">Modifier les informations d'un agent</h3>
+          <div class="card-tools">
+              <button type="button" class="btn btn-tool" data-card-widget="collapse">
+              <i class="fas fa-minus"></i>
+              </button>
+              
+          </div>
+      </div>
+      <!-- /.card-header -->
+      
+      <div class="card-body">
+          <div class="row">
+              <div class="form-group col-sm-12">
+                  <label for="{form.matricule.id_for_label}">Matricule</label>
+                    {{form.matricule}}
+                </div>
+              <!-- /.form-group -->  
+          </div>
+      </div>
+      <!-- /.card-body -->
+
+
+      <div class="card-footer">
+          <div class="col-8 d-flex justify-content-center" style="margin: auto;">
+              <button type="submit" class="btn btn-success col-12">Chercher</button>
+          </div>
+      </div>
+      <!-- /.footer --> 
+  </form>
+
+  <div class="row">
+      <!-- TABLE: Manage users -->
+      <div class="col-12">
+          <div class="card">
+              
+              <!-- /.card-header -->
+              <div class="card-body p-0">
+                {% if agent %}
+                  
+                  <div class="table-responsive">
+                      <table class="table m-0">
+                      <thead>
+                      <tr>
+                          <th class="text-center">Matricule</th>
+                          <th class="text-center">Nom et Prenom</th>
+                          <th class="text-center">CIN</th> 
+                          <th class="text-center">Categorie</th>
+                          <th class="text-center">Date de naissance</th> 
+                          <th class="text-center">Age</th> 
+                          <th class="text-center">Action</th> 
+                      </tr>
+                      </thead>
+                      <tbody>
+                            <tr>
+                                <td class="text-center">{{agent.matricule}}</td>
+                                <td class="text-center">{{agent.nom|upper}} {{agent.prenom|title}} </td>
+                                <td class="text-center">{{agent.CIN|upper}}</td> 
+                                <td class="text-center">{{agent.categorie|upper}}</td>
+                                <td class="text-center">{{agent.datenaissance|date:'Y-m-d'}}</td> 
+                                <td class="text-center">{{agent.age}}</td> 
+                                <td class="d-flex justify-content-center " >
+                                    <a href="{% url 'modifier_personne_page' type='a' idd=agent.id %}?matricule={{ agent.matricule }}" class='btn btn-primary btn-sm edit mr-1'><i class='fa fa-edit'></i> Modifier</a>
+                                    <a href="{% url 'supprimer_page' idd=agent.id type='a' %}?matricule={{ agent.matricule }}" class='btn btn-danger btn-sm delete ml-1' onclick="return confirm('Etes-vous sûr ?')"><i class='fa fa-trash'></i> Supprimer</a>
+                                </td>
+                            </tr>
+                        
+                            {% for conjointe in conjointes %}
+                            <tr>
+                                <td class="text-center">Conjoint {{ forloop.counter }}</td>
+                                <td class="text-center">{{conjointe.nom|upper}} {{conjointe.prenom|title}} </td>
+                                <td class="text-center">{{conjointe.CIN|upper}}</td> 
+                                <td class="text-center">-</td>
+                                <td class="text-center">{{conjointe.datenaissance|date:'Y-m-d'}}</td> 
+                                <td class="text-center">{{conjointe.age}}</td> 
+                                <td class="d-flex justify-content-center " >
+                                    <a href="{% url 'modifier_personne_page' type='c' idd=conjointe.id %}?matricule={{ agent.matricule }}" class='btn btn-primary btn-sm edit mr-1'><i class='fa fa-edit'></i> Modifier</a>
+                                    <a href="{% url 'supprimer_page' idd=conjointe.id type='c' %}?matricule={{ agent.matricule }}" class='btn btn-danger btn-sm delete ml-1' onclick="return confirm('Etes-vous sûr ?')"><i class='fa fa-trash'></i> Supprimer</a>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                            {% for enfant in enfants %}
+                            <tr>
+                                <td class="text-center">Enfant {{ forloop.counter }}</td>
+                                <td class="text-center">{{enfant.nom|upper}} {{enfant.prenom|title}} </td>
+                                <td class="text-center">{{enfant.CIN|upper}}</td> 
+                                <td class="text-center">-</td>
+                                <td class="text-center">{{enfant.datenaissance|date:'Y-m-d'}}</td> 
+                                <td class="text-center">{{enfant.age}}</td> 
+                                <td class="d-flex justify-content-center " >
+                                    <a href="{% url 'modifier_personne_page' type='e' idd=enfant.id %}?matricule={{ agent.matricule }}" class='btn btn-primary btn-sm edit mr-1'><i class='fa fa-edit'></i> Modifier</a>
+                                    <a href="{% url 'supprimer_page' idd=enfant.id type='e' %}?matricule={{ agent.matricule }}" class='btn btn-danger btn-sm delete ml-1' onclick="return confirm('Etes-vous sûr ?')"><i class='fa fa-trash'></i> Supprimer</a>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                      </tbody>
+                      </table>
+                  </div>
+              <!-- /.table-responsive -->
+              
+              </div>
+
+              <!-- /.card-body -->
+              <div class="card-footer d-flex justify-content-center">
+                <a href="{% url 'ajouter_personne_page' type='e' idd=agent.id %}?matricule={{ agent.matricule }}" class='btn btn-default btn-sm edit mr-1'><i class='fa fa-plus-circle'></i> Ajouter un enfant</a>
+                <a href="{% url 'ajouter_personne_page' type='c' idd=agent.id %}?matricule={{ agent.matricule }}" class='btn btn-default btn-sm edit mr-1'><i class='fa fa-plus-circle'></i> Ajouter un(e) conjoint(e) </a>
+            </div>
+              <!-- /.card-footer -->
+              {% endif %}
+
+          </div>
+          <!-- /.card -->
+      </div>
+  </div>
+  
+{% endblock content%}
+
+{% block scripts %}
+<script>
+    // Get a reference to the matricule input element
+    const matriculeInput = document.getElementById('id_matricule');
+
+    // Get the value of the 'matricule' query parameter from the URL
+    const queryParams = new URLSearchParams(window.location.search);
+    const matriculeFromQuery = queryParams.get('matricule');
+
+    // Set the value of the matricule input field if available in the query parameter
+    if (matriculeFromQuery) {
+        matriculeInput.value = matriculeFromQuery;
+    }
+</script>
+
+{% endblock scripts %}

@@ -1,0 +1,104 @@
+{% extends "aquaparks_app/base.html" %}
+
+{% block content %}
+  <!-- Statistics with Cards-->
+  <div class="row">
+    <div class="col-lg-6 col-12">
+        <!-- small box -->
+        <div class="small-box bg-blue">
+          <div class="inner">
+            <h3><strong>DinoLand</strong> <br></h3>
+            <h4>{{dino}}</h4>
+          </div>
+          <div class="icon">
+            <i>{{dino}} &nbsp;</i><br>
+          </div>
+          <a {% if user.user_type == '1' %} href="{% url 'download_agents_excel' aquapark='dinoland' %}"{% endif %} class="small-box-footer">DinoLand Beni Mellal</a>
+        </div>
+    </div>
+    <!-- ./col -->
+    <div class="col-lg-6 col-12">
+        <!-- small box -->
+        <div class="small-box bg-green">
+          <div class="inner">
+            <h3>Tamaris<br></h3>
+            <h4>{{tam}}</h4>
+          </div>
+          <div class="icon"> <i>{{tam}} &nbsp;</i><br>
+          </div>
+          <a {% if user.user_type == '1' %} href="{% url 'download_agents_excel' aquapark='tamaris' %}"{% endif %} class="small-box-footer">Tamaris Casablanca </a>
+        </div>
+    </div>
+    <!-- ./col -->
+  </div>
+  <!-- /.row -->
+  <div class="row">
+    <div class="col-lg-6 col-12">
+        <!-- small box -->
+        <div class="small-box bg-red">
+          <div class="inner">
+            <h3>AquaFun <br></h3>
+            <h4>{{aquaf}}</h4>
+          </div>
+          <div class="icon">
+            <i>{{aquaf}} &nbsp;</i>
+            <br>
+          </div>
+          <a {% if user.user_type == '1' %} href="{% url 'download_agents_excel' aquapark='aquafun' %}"{% endif %} class="small-box-footer">AquaFun Marrakech</a>
+        </div>
+    </div>
+    <!-- ./col -->
+    <div class="col-lg-6 col-12">
+        <!-- small box -->
+        <div class="small-box bg-cyan">
+          <div class="inner">
+            <h3>AquaMirage<br></h3>
+            <h4>{{aquam}}</h4>
+          </div>
+          <div class="icon"> <i>{{aquam}} &nbsp;</i><br>
+          </div>
+          <a {% if user.user_type == '1' %}href="{% url 'download_agents_excel' aquapark='aquamirage' %}"{% endif %}  class="small-box-footer">AquaMirage Marrakech </a>
+        </div>
+    </div>
+    <!-- ./col -->
+  </div>
+  <!-- /.row -->
+  <div class="card card-olive shadow">
+    <div class="card-header">
+      <h3 class="card-title">Nombre de reservations</h3>
+    </div>
+  <div class="card-body p-0">
+    <canvas id="reservationChart" width="400" height="200"></canvas>
+  </div>
+{% endblock content %}
+
+{% block scripts %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+  var ctx = document.getElementById('reservationChart').getContext('2d');
+  var aquaparks = ['DinoLand', 'Tamaris', 'AquaFun', 'AquaMirage'];
+  var reservationCounts = [{{ dino }}, {{ tam }}, {{ aquaf }}, {{ aquam }}];
+  
+  var barColors = ['blue', 'forestgreen', 'darkred', 'teal'];
+  var reservationChart = new Chart(ctx, {
+      type: 'bar',
+      data: {
+          labels: aquaparks,
+          datasets: [{
+              label: 'Nombre de Reservations',
+              data: reservationCounts,
+              backgroundColor: barColors,
+          }]
+      },
+      options: {
+          scales: {
+              y: {
+                  beginAtZero: true,
+              }
+          }
+      }
+  });
+</script>
+
+{% endblock scripts %}
