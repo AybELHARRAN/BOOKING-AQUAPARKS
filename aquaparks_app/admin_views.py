@@ -143,6 +143,7 @@ def reservation2(request,matricule):
             messages.success(request, 'La réservation est faite avec succès')
         else:
             form = ReserverForm()
+        ###
     dino_p,tam_p,aquaf_p,aquam_p=0,0,0,0
     for personnes in [agent,conjointes,enfants]:
         if personnes == agent:
