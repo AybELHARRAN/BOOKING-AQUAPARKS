@@ -168,10 +168,7 @@ class ReserverForm(forms.Form):
     tamaris = forms.ChoiceField(required=True, choices=constantes.TAMARIS_CHOICES )
     aquafun = forms.ChoiceField(required=True, choices=constantes.AQUAFUN_CHOICES)
     aquamirage = forms.ChoiceField(required=True, choices=constantes.AQUAMIRAGE_CHOICES)
-    '''dinoland_e = forms.ChoiceField(required=True, choices=(('0','0')) )
-    tamaris_e = forms.ChoiceField(required=True, choices=(('0','0')) )
-    aquafun_e = forms.ChoiceField(required=True, choices=(('0','0')))
-    aquamirage_e = forms.ChoiceField(required=True, choices=(('0','0')))'''
+   
 
 class VerifierForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):

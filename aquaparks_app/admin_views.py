@@ -24,24 +24,24 @@ def verification(request,matricule):
         if personnes == agent:
             dino_p += int(personnes.dinoland_reservations)*constantes.DINOLAND_PRIX['adulte']
             tam_p += int(personnes.tamaris_reservations)*constantes.TAMARIS_PRIX['adulte']
-            if len(personnes.aquafun_reservations)==2:
+            if personnes.aquafun_reservations[-1] == 'D':
                 aquaf_p += int(personnes.aquafun_reservations[0])*constantes.AQUAFUN_PRIX['avec']['adulte']
             else:
                 aquaf_p += int(personnes.aquafun_reservations[0])*constantes.AQUAFUN_PRIX['sans']['adulte']
-            if len(personnes.aquamirage_reservations)==2:
+            if personnes.aquamirage_reservations[-1]== 'D':
                 aquam_p += int(personnes.aquamirage_reservations[0])*constantes.AQUAMIRAGE_PRIX['avec']['adulte']
             else:
                 aquam_p += int(personnes.aquamirage_reservations[0])*constantes.AQUAMIRAGE_PRIX['sans']['adulte']
         else:
             for per in personnes:
-                if isinstance(per,Conjointe) or per.age>21:
+                if isinstance(per,Conjointe) or per.age>12:
                     dino_p += int(per.dinoland_reservations)*constantes.DINOLAND_PRIX['adulte']
                     tam_p += int(per.tamaris_reservations)*constantes.TAMARIS_PRIX['adulte']
-                    if len(per.aquafun_reservations)==2:
+                    if per.aquafun_reservations[-1] == 'D':
                         aquaf_p += int(per.aquafun_reservations[0])*constantes.AQUAFUN_PRIX['avec']['adulte']
                     else:
                         aquaf_p += int(per.aquafun_reservations[0])*constantes.AQUAFUN_PRIX['sans']['adulte']
-                    if len(per.aquamirage_reservations)==2:
+                    if per.aquamirage_reservations[-1]== 'D':
                         aquam_p += int(per.aquamirage_reservations[0])*constantes.AQUAMIRAGE_PRIX['avec']['adulte']
                     else:
                         aquam_p += int(per.aquamirage_reservations[0])*constantes.AQUAMIRAGE_PRIX['sans']['adulte']
@@ -53,11 +53,11 @@ def verification(request,matricule):
                 else:
                     dino_p += int(per.dinoland_reservations)*constantes.DINOLAND_PRIX['enfant']
                     tam_p += int(per.tamaris_reservations)*constantes.TAMARIS_PRIX['enfant']
-                    if len(per.aquafun_reservations)==2:
+                    if per.aquafun_reservations[-1] == 'D':
                         aquaf_p += int(per.aquafun_reservations[0])*constantes.AQUAFUN_PRIX['avec']['enfant']
                     else:
                         aquaf_p += int(per.aquafun_reservations[0])*constantes.AQUAFUN_PRIX['sans']['enfant']
-                    if len(per.aquamirage_reservations)==2:
+                    if per.aquamirage_reservations[-1]== 'D':
                         aquam_p += int(per.aquamirage_reservations[0])*constantes.AQUAMIRAGE_PRIX['avec']['enfant']
                     else:
                         aquam_p += int(per.aquamirage_reservations[0])*constantes.AQUAMIRAGE_PRIX['sans']['enfant']
@@ -116,34 +116,32 @@ def reservation2(request,matricule):
     forms_e = [ReserverForm(request.POST or None,prefix=f'e{n}') for n in range(len(enfants))]
     if agent.dinoland_reservations != '0' or agent.tamaris_reservations != '0' or agent.aquafun_reservations != '0' or agent.aquamirage_reservations != '0':
         messages.warning(request,'Reservation déjà faite!')
+    if request.method == 'POST':
+        if form_a.is_valid():
+            agent.dinoland_reservations = form_a.cleaned_data.get('dinoland')
+            agent.tamaris_reservations = form_a.cleaned_data.get('tamaris')
+            agent.aquafun_reservations = form_a.cleaned_data.get('aquafun')
+            agent.aquamirage_reservations = form_a.cleaned_data.get('aquamirage')
+            agent.save()
+        for n,form_c in enumerate(forms_c):
+            if form_c.is_valid():
+                conjointe = conjointes[n]
+                conjointe.dinoland_reservations = form_c.cleaned_data.get('dinoland')
+                conjointe.tamaris_reservations = form_c.cleaned_data.get('tamaris')
+                conjointe.aquafun_reservations = form_c.cleaned_data.get('aquafun')
+                conjointe.aquamirage_reservations = form_c.cleaned_data.get('aquamirage')
+                conjointe.save()
+        for n,form_e in enumerate(forms_e):
+            if form_e.is_valid():
+                enfant = enfants[n]
+                enfant.dinoland_reservations = form_e.cleaned_data.get('dinoland')
+                enfant.tamaris_reservations = form_e.cleaned_data.get('tamaris')
+                enfant.aquafun_reservations = form_e.cleaned_data.get('aquafun')
+                enfant.aquamirage_reservations = form_e.cleaned_data.get('aquamirage')
+                enfant.save()
+        messages.success(request, 'La réservation est faite avec succès')
     else:
-        if request.method == 'POST':
-            if form_a.is_valid():
-                agent.dinoland_reservations = form_a.cleaned_data.get('dinoland')
-                agent.tamaris_reservations = form_a.cleaned_data.get('tamaris')
-                agent.aquafun_reservations = form_a.cleaned_data.get('aquafun')
-                agent.aquamirage_reservations = form_a.cleaned_data.get('aquamirage')
-                agent.save()
-            for n,form_c in enumerate(forms_c):
-                if form_c.is_valid():
-                    conjointe = conjointes[n]
-                    conjointe.dinoland_reservations = form_c.cleaned_data.get('dinoland')
-                    conjointe.tamaris_reservations = form_c.cleaned_data.get('tamaris')
-                    conjointe.aquafun_reservations = form_c.cleaned_data.get('aquafun')
-                    conjointe.aquamirage_reservations = form_c.cleaned_data.get('aquamirage')
-                    conjointe.save()
-            for n,form_e in enumerate(forms_e):
-                if form_e.is_valid():
-                    enfant = enfants[n]
-                    enfant.dinoland_reservations = form_e.cleaned_data.get('dinoland')
-                    enfant.tamaris_reservations = form_e.cleaned_data.get('tamaris')
-                    enfant.aquafun_reservations = form_e.cleaned_data.get('aquafun')
-                    enfant.aquamirage_reservations = form_e.cleaned_data.get('aquamirage')
-                    enfant.save()
-            messages.success(request, 'La réservation est faite avec succès')
-        else:
-            form = ReserverForm()
-        ###
+        form = ReserverForm()
     dino_p,tam_p,aquaf_p,aquam_p=0,0,0,0
     for personnes in [agent,conjointes,enfants]:
         if personnes == agent:
