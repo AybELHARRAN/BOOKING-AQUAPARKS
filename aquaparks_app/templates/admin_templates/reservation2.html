@@ -75,45 +75,36 @@
                     <td>{{enfant.age}}</td>
                     {% with form_e=forms_e|get:forloop.counter0 %}
                     {% if enfant.age < 2 or enfant.age >= 21 %}
-                    <td>
-                        <select class="form-control">
-                          <option>0</option>
-                        </select>
-                      </td>
+                        <td>
+                            <select class="form-control">
+                            <option>0</option>
+                            </select>
+                        </td>
+                        <td>
+                            <select class="form-control">
+                            <option>0</option>
+                            </select>
+                        </td>
+                        <td>
+                            <select class="form-control">
+                            <option>0</option>
+                            </select>
+                        </td>
+                        <td>
+                            <select class="form-control">
+                            <option>0</option>
+                            </select>
+                        </td>
                       {% else %}
                       <td>
                         {{form_e.dinoland}}
                     </td>
-                    {% endif %}
-                    {% if enfant.age < 2 or enfant.age >= 21 %}
-                    <td>
-                        <select class="form-control">
-                          <option>0</option>
-                        </select>
-                      </td>
-                      {% else %}
                     <td>
                         {{form_e.tamaris}}
                     </td>
-                    {% endif %}
-                    {% if enfant.age < 2 or enfant.age >= 21 %}
-                    <td>
-                        <select class="form-control">
-                          <option>0</option>
-                        </select>
-                      </td>
-                      {% else %}
                     <td>
                         {{form_e.aquafun}}
                     </td>
-                    {% endif %}
-                    {% if enfant.age < 2 or enfant.age >= 21 %}
-                    <td>
-                        <select class="form-control">
-                          <option>0</option>
-                        </select>
-                      </td>
-                      {% else %}
                     <td>
                         {{form_e.aquamirage}}
                     </td>
@@ -123,74 +114,69 @@
                 {% endfor %}
                 </tbody>
             </table>
-        </div>
-        
-    </div>
-
-
-    </div>
-    <!-- /.card-body -->
+              <!-- /.card-body -->
     <div class="card-footer">
         <div class="col-8 d-flex justify-content-center" style="margin: auto;">
             <button type="submit" class="btn btn-success col-12">Reserver</button>
         </div>
     </div>
-    <!-- /.footer --> 
+    <!-- /.footer -->
+        </div>
+        
+    </div>
+
+
+    </div>
+   
 </form>
-               <!-- Les prix with a TABLE-->
-               <div class="card card-olive">
-                <div class="card-header">
-                    <h3 class="card-title">Prix a payer</h3>
-                    <div class="card-tools">
-                        <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                        <i class="fas fa-minus"></i>
-                        </button>  
-                    </div>
-                </div>
-                
-                <div class="card-body p-0">
-                    <table class="table table-striped">
-                        <thead>
-                            <tr>
-                                <th style="width: 10px">#</th>
-                                <th style="width: auto;">Aquaparks</th>
-                                <th style="width: auto; " class="d-flex justify-content-center">Prix</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-        
-                        <tr>
-                            <td>1.</td>
-                            <td>DinoLand</td>
-                            <td class="d-flex justify-content-center "><span class="badge bg-green" style="width: 50%;font-size: 15px; ">{{dino_p}}</span></td>
-                        </tr>
-        
-                        <tr>
-                            <td>2.</td>
-                            <td>Tamaris</td>
-                            <td class="d-flex justify-content-center"><span class="badge bg-green" style="width: 50%;font-size: 15px;">{{tam_p}}</span></td>
-                        </tr>
-        
-                        <tr>
-                            <td>3.</td>
-                            <td>AquaFun</td>
-                            <td class="d-flex justify-content-center"><span class="badge bg-green" style="width: 50%;font-size: 15px;">{{aquaf_p}}</span></td>
-                        </tr>
-        
-                        <tr>
-                            <td>4.</td>
-                            <td>AquaMirage</td>
-                            <td class="d-flex justify-content-center"><span class="badge bg-green" style="width: 50%;font-size: 15px;">{{aquam_p}}</span></td>
-                        </tr>
-        
-                        </tbody>
-                    </table>
-                </div>
-                
-            </div>
-        
-        
-        
+    <!-- Les prix with a TABLE-->
+    <div class="card card-olive">
+    <div class="card-header">
+        <h3 class="card-title">Prix a payer</h3>
+        <div class="card-tools">
+            <button type="button" class="btn btn-tool" data-card-widget="collapse">
+            <i class="fas fa-minus"></i>
+            </button>  
+        </div>
+    </div>
+    
+    <div class="card-body p-0">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th style="width: 10px">#</th>
+                    <th style="width: auto;">Aquaparks</th>
+                    <th style="width: auto; " class="d-flex justify-content-center">Prix</th>
+                </tr>
+            </thead>
+            <tbody>
+
+            <tr>
+                <td>1.</td>
+                <td>DinoLand</td>
+                <td class="d-flex justify-content-center "><span class="badge bg-green" style="width: 50%;font-size: 15px; ">{{dino_p}}</span></td>
+            </tr>
+
+            <tr>
+                <td>2.</td>
+                <td>Tamaris</td>
+                <td class="d-flex justify-content-center"><span class="badge bg-green" style="width: 50%;font-size: 15px;">{{tam_p}}</span></td>
+            </tr>
+
+            <tr>
+                <td>3.</td>
+                <td>AquaFun</td>
+                <td class="d-flex justify-content-center"><span class="badge bg-green" style="width: 50%;font-size: 15px;">{{aquaf_p}}</span></td>
+            </tr>
+
+            <tr>
+                <td>4.</td>
+                <td>AquaMirage</td>
+                <td class="d-flex justify-content-center"><span class="badge bg-green" style="width: 50%;font-size: 15px;">{{aquam_p}}</span></td>
+            </tr>
+
+            </tbody>
+        </table>
         
             <!-- PRIX TOTAL -->
             <div class="col-sm-12 d-flex justify-content-center">
@@ -210,6 +196,13 @@
                     </div>
                 </div>
             </div>
+    </div>
+    
+</div>
+
+        
+        
+        
         
                     </div>
                     <!-- /.card-body -->

@@ -1,0 +1,104 @@
+@startuml
+
+class User {
+  - email: string
+  - username: string
+  - user_type: string
+  - gender: string
+  - created_at: DateTime
+  - updated_at: DateTime
+  - first_name: string
+  - last_name: string
+}
+class Administrateur {
+  + faireReservation()
+  + verifierReservation()
+  + ajouterAgent(): Agent
+  + modifierInformationsAgent(): Agent
+  + ajouterStaff(): Staff
+  + uploaderBaseAgents()
+  + voirStatistiqueAquaparks()
+  + genererListeDesReservationsPourChaqueAquaparc():format excel
+  + seDeconnecter()
+}
+
+class Staff {
+  + faireReservation()
+  + verifierReservation()
+  + voirStatistiqueAquaparks()
+}
+
+class Agent {
+  - matricule: string
+  - CIN: string
+  - categorie: string
+  - age: int
+  - nom: string
+  - prenom: string
+  - datenaissance: Date
+  - telephone: string
+  - email: string
+  - sexe: string
+  - adulte_enfant: string
+  - accord: string
+  - ent_affect: string
+  - dateembauche: Date
+  - dinoland_reservations: int
+  - tamaris_reservations: int
+  - aquafun_reservations: int
+  - aquamirage_reservations: int
+}
+
+class Enfant {
+  - age: int
+  - CIN: string
+  - nom: string
+  - prenom: string
+  - datenaissance: Date
+  - sexe: string
+  - adulte_enfant: string
+  - accord: string
+  - droit_a_beneficier: string
+  - dinoland_reservations: int
+  - tamaris_reservations: int
+  - aquafun_reservations: int
+  - aquamirage_reservations: int
+}
+
+class Conjointe {
+  - age: int
+  - CIN: string
+  - nom: string
+  - prenom: string
+  - datenaissance: Date
+  - sexe: string
+  - adulte_enfant: string
+  - accord: string
+  - dinoland_reservations: int
+  - tamaris_reservations: int
+  - aquafun_reservations: int
+  - aquamirage_reservations: int
+}
+
+
+
+class Reservation {
+  - agent: Agent
+  - aquapark: Aquapark
+  - tickets adultes réservés: int
+  - tickets enfants réservés: int
+}
+
+User <|-- Staff
+User <|-- Administrateur
+Agent <..> Reservation
+Administrateur --> Agent
+Administrateur --> Conjointe
+Administrateur --> Enfant
+Staff --> Reservation
+Administrateur --> Reservation
+Agent .. Enfant
+Agent .. Conjointe
+Administrateur --> Staff
+
+@enduml
