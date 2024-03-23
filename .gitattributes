@@ -1,1 +1,3 @@
-aquaparks_app/static/* linguist-vendored
+aquaparks_app/static/dist/js/* linguist-vendored
+aquaparks_app/static/dist/css/* linguist-vendored
+aquaparks_app/static/dist/plugins/* linguist-vendored
